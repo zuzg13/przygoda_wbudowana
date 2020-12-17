@@ -1,5 +1,7 @@
 # przygoda_wbudowana
 
+Projekt realizowany przy pomocy mikrokontrolera LPC1786
+
 Rejestrator temperatury i wilgotności:
 - aplikacja obsługuje podwójny czujnik temperatury i wilgotności DHT11
 - wyniki pomiarów są prezentowane w formie liczbowej i wykresów na wyświetlaczu
