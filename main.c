@@ -26,7 +26,7 @@ int main(){
 	
 	while(LPC_GPIO1->FIOPIN & PIN)
 	{
-		if(getCounter()>40) break;
+		if(LPC_TIM0->TC>40) break;
 	}
 	int t = stopTimer();
 	
