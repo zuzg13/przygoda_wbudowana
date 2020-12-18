@@ -13,7 +13,7 @@ void TIMER0_IRQHandler(void)
 void initTimer(void)
 {
     LPC_TIM0->CTCR = 0;
-    LPC_TIM0->PR  = prescale(PCLK_TIMER0);
+    LPC_TIM0->PR  = PCLK_TIMER0; //prescale(PCLK_TIMER0);
     LPC_TIM0->TCR = 2;
 }
 
