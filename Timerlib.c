@@ -10,13 +10,26 @@ void TIMER0_IRQHandler(void)
 	counter++;
 }
 
+void initTimer(void)
+{
+    LPC_TIM0->CTCR = 0;
+    LPC_TIM0->PR  = prescale(PCLK_TIMER0);
+    LPC_TIM0->TCR = 2;
+}
+
 void delay(int time)
 {
-	LPC_TIM0->PR  = getPrescalarForUs(PCLK_TIMER0); 
-	LPC_TIM0->MR0 = time;
-	LPC_TIM0->MCR = 1<<1 | 1;
-	LPC_TIM0->TCR = 1;
-	NVIC_EnableIRQ(TIMER0_IRQn);
+    LPC_TIM0->TCR = 2; // reset
+    LPC_TIM0->TCR = 1; // enable
+    while(LPC_TIM0->TC < time);
+    LPC_TIM0->TCR = 0; // disable
+
+    // old version
+	//LPC_TIM0->PR  = prescale(PCLK_TIMER0);
+	//LPC_TIM0->MR0 = time;
+	//LPC_TIM0->MCR = 1<<1 | 1;
+	//LPC_TIM0->TCR = 1;
+	//NVIC_EnableIRQ(TIMER0_IRQn);
 }
 
 int getCounter(void)
@@ -26,16 +39,20 @@ int getCounter(void)
 
 void startTimer(void)
 {
-	delay(1);
-	counter = 0;
+	//delay(1);
+	//counter = 0;
+
+	LPC_TIM0->TCR = 2; // reset
+	LPC_TIM0->TCR = 1; // enable
 }
  
-int getTimer(void)
+int stopTimer(void)
 {
-	return counter;
+    LPC_TIM0->TC = 0;
+	return LPC_TIM0->TC;
 }
 
- unsigned int getPrescalarForUs(uint8_t timerPclkBit)
+ unsigned int prescale(uint8_t timerPclkBit)
 {
     unsigned int pclk,prescalarForUs;
     pclk = (LPC_SC->PCLKSEL0 >> timerPclkBit) & 0x03;  /* get the pclk info for required timer */

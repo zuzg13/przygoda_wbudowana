@@ -13,32 +13,28 @@ int main(){
 	setBackground(LCDWhite);
 	
 	char xc[10];
-	
-	
+
 	//printString("y=2x+4", 200, 50, LCDBlack);
-	
 	
 	LPC_GPIO1->FIODIR |= PIN;
 	LPC_GPIO1->FIOCLR |= PIN;
 	delay(18000);
 	
 	LPC_GPIO1->FIODIR &= ~(PIN);
-	
-	
+
 	startTimer();
 	
-	while(LPC_GPIO1->FIOPIN & PIN )
+	while(LPC_GPIO1->FIOPIN & PIN)
 	{
 		if(getCounter()>40) break;
 	}
-	int t = getTimer();
+	int t = stopTimer();
 	
 	if(t<10 || t>40)
 	{
 		printString("ERROR", 200, 50, LCDBlack);
 		sprintf(xc, "%d", t);
 		printString(xc, 100, 25, LCDBlack);
-		
 	}
 	else
 	{

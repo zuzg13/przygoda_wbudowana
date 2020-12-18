@@ -1,5 +1,5 @@
 #include "LPC17xx.h"
-#define PCLK_TIMER0  2 //value for prescaler
+#define PCLK_TIMER0  24 //value for prescaler
 
 #define MiliToMicroSec(x)  (x*1000) //converting seconds
 
@@ -10,6 +10,8 @@
 */
 void delay(int time);
 
+void initTimer(void);
+
 /**
 @brief starts time counter
 */
@@ -19,7 +21,7 @@ void startTimer(void);
 @brief stops time counter
 @return value of counter
 */
-int getTimer(void);
+int stopTimer(void);
 
 /**
 @brief returns current value of counter
@@ -32,4 +34,4 @@ int getCounter(void);
 @param timerPclkBit
 @return value to put into prescaler
 */
-unsigned int getPrescalarForUs(uint8_t timerPclkBit);
+unsigned int prescale(uint8_t timerPclkBit);
