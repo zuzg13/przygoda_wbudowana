@@ -62,7 +62,19 @@ int main(){
         }
         else printString("ERROR", 200, 50, LCDBlack);
     }
-	
-	while(1){}
+
+    bit = 0;
+    for(int i=0; i<5; i++) //5 bytes in frame
+    {
+        for(int j=0; j<8; j++)
+        {
+            if( bits[ 8*i + j ] )
+                bit |= (1<<(7-j)); //shift only 1
+        }
+        bytes[i] = bit; //saves data to bytes array
+        bit = 0; //starts again with new byte
+    }
+
+    while(1){}
 }
 
