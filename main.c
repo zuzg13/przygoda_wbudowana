@@ -14,6 +14,10 @@ int main(){
 	setBackground(LCDWhite);
 	
 	char xc[10];
+    unsigned char bits[40] = {0}; //40 because 8*5
+    char bytes[5] = {0};
+
+    initTimer();
 
 	//printString("y=2x+4", 200, 50, LCDBlack);
 	
@@ -47,7 +51,17 @@ int main(){
 	checkResponse(80, 5, 0); //check DHT sensor response
 	checkResponse(80, 5, 1); //check DHT sensor start response
 
-	
+    char bit;
+    for(int i=0; i < 40; i++) //getting 40 bits sent by dht and saving them to bits array
+    {
+        bit = getData();
+
+        if(bit == 0 || bit == 1)
+        {
+            bits[i] = bit;
+        }
+        else printString("ERROR", 200, 50, LCDBlack);
+    }
 	
 	while(1){}
 }
