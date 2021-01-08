@@ -13,7 +13,7 @@ int main(){
 	
 	setBackground(LCDWhite);
 	
-	char xc[10];
+	char xc[13];
     unsigned char bits[40] = {0}; //40 because 8*5
     char bytes[5] = {0};
 
@@ -74,6 +74,9 @@ int main(){
         bytes[i] = bit; //saves data to bytes array
         bit = 0; //starts again with new byte
     }
+
+    sprintf(xc, "T = %d, H = %d", bytes[0], bytes[2]);
+    printString(xc, 200, 50, LCDBlack);
 
     while(1){}
 }
