@@ -2,19 +2,21 @@
 
 
 extern unsigned int SystemCoreClock;
-volatile int counter=0;
 
-void TIMER0_IRQHandler(void)
-{	
-	LPC_TIM0->IR = 1;
-	counter++;
-}
 
-void initTimer(void)
+
+void initTimer0(void)
 {
     LPC_TIM0->CTCR = 0;
-    LPC_TIM0->PR  = PCLK_TIMER0; //prescale(PCLK_TIMER0);
+    LPC_TIM0->PR  = 24;
     LPC_TIM0->TCR = 2;
+}
+
+void initTimer1(void)
+{
+    LPC_TIM1->CTCR = 0;
+    LPC_TIM1->PR  = 24;
+    LPC_TIM1->TCR = 2;
 }
 
 void delay(int time)
@@ -23,21 +25,11 @@ void delay(int time)
     LPC_TIM0->TCR = 1; // enable
     while(LPC_TIM0->TC < time);
     LPC_TIM0->TCR = 0; // disable
-
-    // old version
-	//LPC_TIM0->PR  = prescale(PCLK_TIMER0);
-	//LPC_TIM0->MR0 = time;
-	//LPC_TIM0->MCR = 1<<1 | 1;
-	//LPC_TIM0->TCR = 1;
-	//NVIC_EnableIRQ(TIMER0_IRQn);
 }
 
-int getCounter(void)
-{
-	return counter;
-}
 
-void startTimer(void)
+
+void startTimer0(void)
 {
 	//delay(1);
 	//counter = 0;
@@ -45,42 +37,24 @@ void startTimer(void)
 	LPC_TIM0->TCR = 2; // reset
 	LPC_TIM0->TCR = 1; // enable
 }
- 
-int stopTimer(void)
+
+void startTimer1(void)
 {
-    LPC_TIM0->TC = 0;
-	return LPC_TIM0->TC;
+	//delay(1);
+	//counter = 0;
+
+	LPC_TIM1->TCR = 2; // reset
+	LPC_TIM1->TCR = 1; // enable
+}
+ 
+int stopTimer0(void)
+{
+    LPC_TIM0->TCR = 0;
+		return LPC_TIM0->TC;
 }
 
- unsigned int prescale(uint8_t timerPclkBit)
+int stopTimer1(void)
 {
-    unsigned int pclk,prescalarForUs;
-    pclk = (LPC_SC->PCLKSEL0 >> timerPclkBit) & 0x03;  /* get the pclk info for required timer */
-
-    switch ( pclk )                                    /* Decode the bits to determine the pclk*/
-    {
-    case 0x00:
-        pclk = SystemCoreClock/4;
-        break;
-
-    case 0x01:
-        pclk = SystemCoreClock;
-        break; 
-
-    case 0x02:
-        pclk = SystemCoreClock/2;
-        break; 
-
-    case 0x03:
-        pclk = SystemCoreClock/8;
-        break;
-
-    default:
-        pclk = SystemCoreClock/4;
-        break;  
-    }
-
-    prescalarForUs =pclk/1000000 - 1;                    /* Prescalar for 1us (1000000Counts/sec) */
-
-    return prescalarForUs;
+    LPC_TIM0->TCR = 0;
+		return LPC_TIM0->TC;
 }
