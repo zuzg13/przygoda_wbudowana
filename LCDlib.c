@@ -87,7 +87,7 @@
          // petla po kolejnych x
          while (x != x2)
          {
-             // test wspólczynnika
+             // test wspï¿½lczynnika
              if (d >= 0)
              {
                  x += xi;
@@ -112,7 +112,7 @@
          // petla po kolejnych y
          while (y != y2)
          {
-             // test wspólczynnika
+             // test wspï¿½lczynnika
              if (d >= 0)
              {
                  x += xi;
