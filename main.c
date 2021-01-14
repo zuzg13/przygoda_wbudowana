@@ -6,7 +6,7 @@
 #include "PIN_LPC17xx.h"
 #include "Board_Buttons.h" // ::Board Support:Buttons
 
-
+double getAverage(const double data[], int size);
 
 #define DATA_PIN (1<<17)
 
@@ -16,6 +16,16 @@ int main(void)
 	//char dataBytes[5] = {0};
 	uint8_t dataBits[40] = {0};
 	uint8_t dataBytes[5] = {0};
+
+	double average_minute_temp[60] = {0.};
+	double average_ten_temp[10] = {0.};
+	double average_temp[100] = {0.};
+    double average_minute_hum[60] = {0.};
+    double average_ten_hum[10] = {0.};
+    double average_hum[100] = {0.};
+	int counter1 = 0;
+    int counter2 = 0;
+    int counter3 = 0;
 	
 	char xc[13];
 	initTimer0();
@@ -32,26 +42,8 @@ int main(void)
 	setBackground(LCDWhite);
 
 	PIN_Configure(1, 17, PIN_FUNC_0, PIN_PINMODE_PULLUP, 0);
-	
-	
-	/*while(1){
-		
-		if(Buttons_GetState()==1)
-		{	
-			while(Buttons_GetState()!=0){}
-			if(state == 1) 
-				state =2;
-			else
-				state = 1;		
-		}
-		
-		printString(xc, 180, 50, LCDWhite);
-			sprintf(xc, "stan = %d", state );
-			printString(xc, 180, 50, LCDBlue);
-		
-	}*/
-	
-	
+	startTimer1();
+
 	while(1)
 	{
 		if(Buttons_GetState()==1)
@@ -114,7 +106,35 @@ int main(void)
 			}
 			dataBytes[i] = data;
 			data = 0;
-		}		
+		}
+
+		if(LPC_TIM1->TC > 60000)
+        {
+		    stopTimer1();
+
+		    average_ten_temp[counter2] = getAverage(average_minute_temp, counter1);
+            average_ten_hum[counter2] = getAverage(average_minute_hum, counter1);
+            if(counter2>10)
+            {
+                average_temp[counter3] = getAverage(average_ten_temp, counter2);
+                average_hum[counter3] = getAverage(average_ten_hum, counter2);
+                counter3++;
+                counter2 = 0;
+            }
+            else
+            {
+                counter2++;
+                counter1 = 0;
+            }
+		    startTimer1();
+        }
+		else
+        {
+		    average_minute_temp[counter1] = dataBytes[0]; // + dataBytes[1]/100
+            average_minute_hum[counter1] = dataBytes[2]; // + dataBytes[3]/100
+		    counter1++;
+        }
+
 		
 		
 		if(state == 2)
@@ -162,4 +182,10 @@ int main(void)
 
 }
 
+double getAverage(const double data[], int size)
+{
+    double sum = 0.;
+	for(int i=0;i<size;i++) sum += data[i];
+	return sum/size;
+}
 
