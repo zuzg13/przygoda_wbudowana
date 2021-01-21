@@ -1,6 +1,6 @@
 #include "LCDlib.h"
 
- void printChar(char znaczek, int x, int y, uint16_t LCD_RegValue)
+ void printChar(char znaczek, int x, int y, uint16_t LCD_RegValue, uint16_t LCD_BGValue)
  {
 		unsigned char znak[16];
 		GetASCIICode(0, znak, znaczek);
@@ -14,6 +14,10 @@
 				{
 					lcdSetCursor(x-i, y-j);
 					lcdWriteReg(DATA_RAM, LCD_RegValue);
+				}
+				else{
+					lcdSetCursor(x-i, y-j);
+					lcdWriteReg(DATA_RAM, LCD_BGValue);
 				}
 						
 			}
@@ -29,9 +33,22 @@
 	 {
 			x2 = x;
 			y2 = y+k*10;
-			printChar(str[k], x2, y2, LCD_RegValue);		
+			printChar(str[k], x2, y2, LCD_RegValue, LCDWhite);		
 	 }
 	
+ }
+ 
+ void printStringBackground(char* str, int x, int y,  uint16_t LCD_RegValue, uint16_t LCD_BGValue)
+ {
+	 int size = strlen(str);
+	 int x2, y2;
+	 
+	 for(int k=0;k<size;k++)
+	 {
+			x2 = x;
+			y2 = y+k*10;
+			printChar(str[k], x2, y2, LCD_RegValue, LCD_BGValue);		
+	 }
  }
  
   void setBackground(uint16_t LCD_RegValue)
