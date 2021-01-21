@@ -1,9 +1,9 @@
 #include "LCDlib.h"
 
- void printChar(char znaczek, int x, int y, uint16_t LCD_RegValue, uint16_t LCD_BGValue)
+ void printChar(char character, int x, int y, uint16_t LCD_RegValue, uint16_t LCD_BGValue)
  {
 		unsigned char znak[16];
-		GetASCIICode(0, znak, znaczek);
+		GetASCIICode(0, znak, character);
 	
 		for(int i=0;i<16;i++)
 		{		

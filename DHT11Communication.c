@@ -1,9 +1,9 @@
 #include "DHT11Communication.h"
 
-void checkResponse(unsigned int waitTimeUS, unsigned int margin, unsigned char pinValue)
+void checkResponse(unsigned int wait, unsigned int margin, unsigned char pinValue)
 {
 	int time = 0;
-	int maxwait = waitTimeUS + margin;
+	int maxwait = wait + margin;
 	
 	startTimer0();
 	if(pinValue)
@@ -22,14 +22,14 @@ void checkResponse(unsigned int waitTimeUS, unsigned int margin, unsigned char p
 	}
 	time = stopTimer0();
 	
-	if(time < (waitTimeUS-margin) || time > maxwait) 
+	if(time < (wait - margin) || time > maxwait)
 	{
 		//printString("checkResponse() Error", 180, 200, LCDBlack);
 	}
 }
 
 
-char getData(void)
+int8_t getData(void)
 {
   int time = 0;
 	checkResponse(50,5,0); 

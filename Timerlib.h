@@ -1,6 +1,6 @@
+/// @file Timerlib.h
+
 #include "LPC17xx.h"
-
-
 
 /**
 @brief delay time
@@ -8,25 +8,33 @@
 */
 void delay(int time);
 
-void initTimer0(void);
-void initTimer1(void);
 /**
-@brief starts time counter
+ * @brief initialize timer0
+ */
+void initTimer0(void);
+
+/**
+ * @brief initialize timer1
+ */
+void initTimer1(void);
+
+/**
+@brief starts time0
 */
 void startTimer0(void);
+/**
+@brief starts time1
+*/
 void startTimer1(void);
 
-
 /**
-@brief stops time counter
+@brief stops timer0
 @return value of counter
 */
 int stopTimer0(void);
-int stopTimer1(void);
-
 
 /**
-@brief returns current value of counter
+@brief stops timer1
 @return value of counter
 */
-//int getCounter(void);
+int stopTimer1(void);

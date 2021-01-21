@@ -1,10 +1,5 @@
 #include "Timerlib.h"
 
-
-extern unsigned int SystemCoreClock;
-
-
-
 void initTimer0(void)
 {
     LPC_TIM0->CTCR = 0;
