@@ -130,7 +130,8 @@ int main(void)
 			{
 				dataBits[i] = data;
 			}
-			//else printString("Data error", 130, 150,  LCDBlack);  // uncomment this line to check data error but due to 
+			//else printString("Data error", 130, 150,  LCDBlack);  // uncomment this line to check data error 
+										// but due to various technical states of sensor a few are inevitable
 		}																													//technical issues of sensor it is inevitable
 	
 		
