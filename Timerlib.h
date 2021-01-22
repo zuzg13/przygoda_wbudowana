@@ -22,6 +22,7 @@ void initTimer1(void);
 @brief starts time0
 */
 void startTimer0(void);
+
 /**
 @brief starts time1
 */
