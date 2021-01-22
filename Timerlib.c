@@ -26,30 +26,30 @@ void delay(int time)
 
 void startTimer0(void)
 {
-	//delay(1);
-	//counter = 0;
+    //delay(1);
+    //counter = 0;
 
-	LPC_TIM0->TCR = 2; // reset
-	LPC_TIM0->TCR = 1; // enable
+    LPC_TIM0->TCR = 2; // reset
+    LPC_TIM0->TCR = 1; // enable
 }
 
 void startTimer1(void)
 {
-	//delay(1);
-	//counter = 0;
+    //delay(1);
+    //counter = 0;
 
-	LPC_TIM1->TCR = 2; // reset
-	LPC_TIM1->TCR = 1; // enable
+    LPC_TIM1->TCR = 2; // reset
+    LPC_TIM1->TCR = 1; // enable
 }
  
 int stopTimer0(void)
 {
     LPC_TIM0->TCR = 0;
-		return LPC_TIM0->TC;
+    return LPC_TIM0->TC;
 }
 
 int stopTimer1(void)
 {
     LPC_TIM0->TCR = 0;
-		return LPC_TIM0->TC;
+    return LPC_TIM0->TC;
 }
