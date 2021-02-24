@@ -1,5 +1,5 @@
 # przygoda_wbudowana
-##(eng below)
+## (eng below)
 ## Projekt realizowany przy pomocy płytki LPC1786 z mikrokontrolerem ARM Cortex M3
 
 ### Rejestrator temperatury i wilgotności:
@@ -10,8 +10,8 @@
 
 #### Funkcje związane z obsługą **IAP** są dostarczone z ogólnodostępnej biblioteki, dostępnej pod linkiem: [Firmware v2](https://github.com/ciaa/firmware_v2/tree/master/modules/lpc4337_m0/chip?fbclid=IwAR1Ff6qp_C65uYhZHZHFnJ-I0UVIhBOzcH_O-9MIg0_ZHXMGwxBFBQyllgA).
 
-##English description
-## Projekt realizowany przy pomocy płytki LPC1786 z mikrokontrolerem ARM Cortex M3
+## English description
+## The project was developed using the LPC1786 board with the ARM Cortex M3 microcontroller
 
 ### Temperature and humidity recorder:
 - the application supports a dual temperature and humidity sensor *** DHT11 ***
